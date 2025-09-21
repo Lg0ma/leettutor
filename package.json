@@ -1,0 +1,136 @@
+{
+  "name": "leettutor",
+  "displayName": "LeetTutor",
+  "description": "Interactive LeetCode problem solver with Jupyter notebook integration",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Notebooks",
+    "Education",
+    "Other"
+  ],
+  "keywords": [
+    "leetcode",
+    "algorithms",
+    "jupyter",
+    "notebook",
+    "python",
+    "coding-interview"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "leettutor.createNotebook",
+        "title": "Create a Notebook",
+        "category": "LeetTutor",
+        "icon": "$(notebook)"
+      },
+      {
+        "command": "leettutor.populateFromAPI",
+        "title": "Populate from LeetCode API",
+        "category": "LeetTutor",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "leettutor.populateDailyChallenge",
+        "title": "Load Daily Challenge",
+        "category": "LeetTutor",
+        "icon": "$(calendar)"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "leettutor.createNotebook"
+        },
+        {
+          "command": "leettutor.populateFromAPI"
+        },
+        {
+          "command": "leettutor.populateDailyChallenge"
+        }
+      ],
+      "notebook/toolbar": [
+        {
+          "command": "leettutor.populateFromAPI",
+          "when": "notebookType == 'jupyter-notebook'",
+          "group": "navigation@1"
+        },
+        {
+          "command": "leettutor.populateDailyChallenge",
+          "when": "notebookType == 'jupyter-notebook'",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "LeetTutor",
+      "properties": {
+        "leettutor.defaultLanguage": {
+          "type": "string",
+          "default": "python3",
+          "enum": [
+            "python3",
+            "python",
+            "java",
+            "cpp",
+            "javascript",
+            "typescript",
+            "go",
+            "rust"
+          ],
+          "description": "Default programming language for code snippets"
+        },
+        "leettutor.includeProblemDescription": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include full problem description in notebooks"
+        },
+        "leettutor.includeTestCases": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include example test cases in notebooks"
+        },
+        "leettutor.includeAnalysisTemplate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include solution analysis template in notebooks"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "leettutor.createNotebook",
+        "key": "ctrl+shift+l",
+        "when": "!notebookEditorFocused"
+      },
+      {
+        "command": "leettutor.populateFromAPI",
+        "key": "ctrl+shift+p",
+        "when": "notebookEditorFocused && activeNotebook == 'jupyter-notebook'"
+      },
+      {
+        "command": "leettutor.populateDailyChallenge",
+        "key": "ctrl+shift+d",
+        "when": "notebookEditorFocused && activeNotebook == 'jupyter-notebook'"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/leettutor.git"
+  }
+}
