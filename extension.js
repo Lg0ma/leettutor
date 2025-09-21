@@ -124,6 +124,8 @@ function activate(context) {
                             .replace(/&lt;/g, '<')
                             .replace(/&gt;/g, '>')
                             .replace(/&amp;/g, '&')
+                            .replace(/&quot;/g, '"')
+                            .replace(/&#39;/g, "'")
                             .replace(/\n\s*\n\s*\n/g, '\n\n') // Clean up extra newlines
                             .trim();
                     }
@@ -142,20 +144,19 @@ function activate(context) {
 
                     const titleCell = new vscode.NotebookCellData(
                         vscode.NotebookCellKind.Markup,
-                        `<font size="5"># ${problemData.title}\n**Difficulty:** ${problemData.difficulty} | **Tags:** ${problemData.topicTags?.map((tag) => tag.name).join(', ') || 'N/A'}</font>`,
+                        `# ${problemData.title}\n\n**Difficulty:** ${problemData.difficulty} | **Tags:** ${problemData.topicTags?.map((tag) => tag.name).join(', ') || 'N/A'}`,
                         'markdown'
                     );
 
                     const statsCell = new vscode.NotebookCellData(
                         vscode.NotebookCellKind.Markup,
-                        `<font size="3">**Stats:** ${statsData ? `${statsData.acRate} acceptance` : 'N/A'}${similarQuestions.length > 0 ? `\n\n**Similar:** ${similarQuestions.slice(0, 3).map(q => `[${q.title}](https://leetcode.com/problems/${q.titleSlug}/)`).join(' | ')}\n\n` : ''}</font>`,
+                        `**Stats:** ${statsData ? `${statsData.acRate} acceptance` : 'N/A'}\n\n**Similar:** ${similarQuestions.length > 0 ? similarQuestions.slice(0, 3).map(q => `[${q.title}](https://leetcode.com/problems/${q.titleSlug}/)`).join(' | ') : 'N/A'}`,
                         'markdown'
                     );
 
                     const problemCell = new vscode.NotebookCellData(
                         vscode.NotebookCellKind.Markup,
-                        `<font size="3">**Problem:** ${cleanDescription}</font>`,
-                        'markdown'
+                        `**Problem:**\n\n${cleanDescription}`,                        'markdown'
                     );
 
                     let codeTemplate = '# Write your solution here\n';
@@ -413,7 +414,7 @@ def run_tests():
 
                     const analysisCell = new vscode.NotebookCellData(
                         vscode.NotebookCellKind.Markup,
-                        `<font size="3">**Analysis:** Time O() | Space O() | Approach: | Notes:</font>`,
+                        `**Analysis:**\n\n- Time Complexity: O()\n- Space Complexity: O()\n\n**Approach:**\n\n*Briefly describe your approach here.*\n\n**Notes:**\n\n*Any additional notes or observations.*`,
                         'markdown'
                     );
 
@@ -464,8 +465,7 @@ auto_run_tests()`,
                     // Add dependency analysis cell if dependencies were found
                     const dependencyCell = predefinedCode ? new vscode.NotebookCellData(
                         vscode.NotebookCellKind.Markup,
-                        `<font size="3">**Dependencies:** ${dependencyAnalysis.replace('# Dependencies found: ', '').replace('\n# Predefined code added automatically', ' (auto-added)')}</font>`,
-                        'markdown'
+                        `**Dependencies:** ${dependencyAnalysis.replace('# Dependencies found: ', '').replace('\n# Predefined code added automatically', ' (auto-added)')}`,                        'markdown'
                     ) : null;
 
                     const cells = dependencyCell ?
@@ -519,7 +519,7 @@ auto_run_tests()`,
 
                     const headerCell = new vscode.NotebookCellData(
                         vscode.NotebookCellKind.Markup,
-                        `# Daily Challenge - ${new Date().toDateString()}\n\n## ${dailyData.title}\n\n**Difficulty:** ${dailyData.difficulty}\n\n**Problem Statement:**\n\n${dailyData.description || 'Problem description not available'}\n\n**Tags:** ${dailyData.topicTags?.map((tag) => tag.name).join(', ') || 'N/A'}`,
+                        `# Daily Challenge - ${new Date().toDateString()}\n\n## ${dailyData.title}\n\n**Difficulty:** ${dailyData.difficulty}\n\n**Tags:** ${dailyData.topicTags?.map((tag) => tag.name).join(', ') || 'N/A'}\n\n**Problem Statement:**\n\n${dailyData.description || 'Problem description not available'}`,
                         'markdown'
                     );
 

@@ -3,6 +3,7 @@
   "displayName": "LeetTutor",
   "description": "Interactive LeetCode problem solver with Jupyter notebook integration",
   "version": "0.0.1",
+  "publisher": "leettutor",
   "engines": {
     "vscode": "^1.104.0"
   },
@@ -131,6 +132,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/leettutor.git"
+    "url": "https://github.com/Lg0ma/leettutor.git"
   }
 }
